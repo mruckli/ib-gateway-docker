@@ -8,10 +8,9 @@
 
 FROM ubuntu:22.04 as setup
 
-ENV IB_GATEWAY_VERSION=10.26.1i
+ENV IB_GATEWAY_VERSION=10.30.1e
 ENV IB_GATEWAY_RELEASE_CHANNEL=latest
-ENV IBC_VERSION=3.18.0
-ENV IBC_UPDATE_VERSION=3.18.0-Update.1
+ENV IBC_VERSION=3.15.2
 
 # Prepare system
 RUN apt-get update -y
@@ -35,7 +34,7 @@ RUN ./ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh -q -dir /root/Jts/
 COPY ./config/ibgateway/jts.ini /root/Jts/jts.ini
 
 # Install IBC
-RUN curl -sSL https://github.com/IbcAlpha/IBC/releases/download/${IBC_UPDATE_VERSION}/IBCLinux-${IBC_VERSION}.zip --output IBCLinux-${IBC_VERSION}.zip
+RUN curl -sSL https://github.com/IbcAlpha/IBC/releases/download/${IBC_VERSION}/IBCLinux-${IBC_VERSION}.zip --output IBCLinux-${IBC_VERSION}.zip
 RUN mkdir /root/ibc
 RUN unzip ./IBCLinux-${IBC_VERSION}.zip -d /root/ibc
 RUN chmod -R u+x /root/ibc/*.sh 
@@ -51,7 +50,7 @@ COPY ./scripts /root/scripts
 
 FROM ubuntu:22.04
 
-ENV IB_GATEWAY_VERSION=10.26.1i
+ENV IB_GATEWAY_VERSION=10.30.1e
 
 WORKDIR /root
 
